@@ -15,18 +15,23 @@ async function createUser(req,res){
 
 async function loginUser(req,res){
 
-     const {email,password}= req.body;
+   const {email,password}= req.body;
+   
+   try{
 
    const User = await user.findOne({email});
-
+   if(!User) throw new Error("User Not Found");
+  
    const matchPass = await bcrypt.compare(password,User.password);
+   if(!matchPass) throw new Error("Wrong Password");
 
-   if(matchPass){
-    return res.json("SUCCESS LOGIN");
-   }
-   return res.json("NO USER FOUND");
+   return res.json("SUCCESS LOGIN");
+
+   }catch(err){
+    return res.render("login",
+      {error:err});
+  }
 }
-
 
 
 
