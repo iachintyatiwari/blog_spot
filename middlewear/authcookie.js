@@ -4,15 +4,15 @@ function checkauthCookie(cookie){
     return (req,res,next)=>{
 
         const cookieToken = req.cookies[cookie];
-        if(!cookieToken){next();}
+        if(!cookieToken){ return next();}
 
         try{
             const userPayload = validateToken(cookieToken);
             req.user = userPayload;
+            return next();
             
-        }catch(error){
-            next();
-        }
+        }catch(error){}
+        
     }
 }
  module.exports = checkauthCookie;

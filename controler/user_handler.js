@@ -34,6 +34,11 @@ async function loginUser(req,res){
   }
 }
 
+function userLogout(req,res){
+
+ return res.clearCookie("token").render("home");
+
+}
 
 
 
@@ -42,4 +47,4 @@ async function loginUser(req,res){
 
 
 
-module.exports = {createUser,loginUser};
+module.exports = {createUser,loginUser,userLogout};
