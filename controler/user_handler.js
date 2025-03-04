@@ -1,5 +1,6 @@
 const user = require("../model/user_model.js");
 const bcrypt = require("bcrypt");
+const {logintokenCreator,validateToken} = require("../utils/authentication.js");
 
 async function createUser(req,res){
 
@@ -9,8 +10,6 @@ async function createUser(req,res){
 
      return res.redirect("/login");
 }
-
-
 
 
 async function loginUser(req,res){
@@ -25,11 +24,13 @@ async function loginUser(req,res){
    const matchPass = await bcrypt.compare(password,User.password);
    if(!matchPass) throw new Error("Wrong Password");
 
-   return res.json("SUCCESS LOGIN");
+   const token = logintokenCreator(User);
+   return res.cookie("token",token).redirect("/");
 
    }catch(err){
     return res.render("login",
-      {error:err});
+      {error:err.message});
+
   }
 }
 
