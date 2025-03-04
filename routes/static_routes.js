@@ -14,8 +14,8 @@ router.get("/signup",(req,res)=>{
 })
 
 router.get("/",(req,res)=>{
-    
-    return res.render("home");
+
+    return res.render("home",{user:req.user});
 })
 
 module.exports= router;
