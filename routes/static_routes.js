@@ -1,4 +1,5 @@
 const express = require("express");
+const {getAllblogs} = require("../controler/blog_handler.js");
 const router = express.Router();
 
 
@@ -13,9 +14,11 @@ router.get("/signup",(req,res)=>{
     return res.render("signup");
 })
 
-router.get("/",(req,res)=>{
+router.get("/",async(req,res)=>{
 
-    return res.render("home",{user:req.user});
+    const allBlogs =await getAllblogs();
+
+    return res.render("home",{ user:req.user,blogs:allBlogs});
 })
 
 router.get("/blog_form",(req,res)=>{
