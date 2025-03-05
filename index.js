@@ -13,7 +13,7 @@ const PORT =8000;
 connectDB("mongodb://127.0.0.1:27017/blogspot");
 
 app.use(express.urlencoded({extended:false}));
-app
+
 app.use(cookieParser());
 app.use(checkauthCookie("token"));
 
@@ -22,7 +22,7 @@ app.set("views",path.resolve("./views"));
 
 app.use("/",staticRoutes);
 app.use("/user",userRoutes);
-app.use("/addblog",blogRoutes);
+app.use("/blog",blogRoutes);
 
 
 

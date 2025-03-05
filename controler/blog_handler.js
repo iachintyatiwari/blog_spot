@@ -6,13 +6,24 @@ async function createBlog(req,res){
 
     const blog = await Blog.create({title,content,createdBy:req.user._id});
 
-    return res.redirect("");
+    return res.redirect(`/blog/${blog._id}`);
 }   
 
-async function getAllblogs(req,res){
+async function getBlog(req,res){
 
-    const allBlogs = await Blog.find({});
-    return  allBlogs;
+    const blog = await Blog.findById(req.params.id);
+
+    return res.render("blog",{
+        blog,
+        user:req.user,
+    });
 }
 
-module.exports = {createBlog,getAllblogs}; 
+async function getAllblogonHome(req,res){
+
+    const allBlogs = await Blog.find({});
+
+    return res.render("home",{user:req.user,blogs:allBlogs});
+}
+
+module.exports = {createBlog,getBlog,getAllblogonHome}; 

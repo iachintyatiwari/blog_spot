@@ -1,7 +1,9 @@
 const express = require("express");
 const route = express.Router();
-const {createBlog} = require("../controler/blog_handler.js");
+const {createBlog,getBlog} = require("../controler/blog_handler.js");
 
- route.post("/",createBlog);
 
- module.exports = route;
+route.post("/",createBlog);
+route.get("/:id",getBlog);
+
+module.exports = route;
