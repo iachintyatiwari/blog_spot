@@ -18,14 +18,14 @@ async function loginUser(req,res){
    
    try{
 
-   const User = await user.findOne({email});
-   if(!User) throw new Error("User Not Found");
+      const User = await user.findOne({email});
+      if(!User) throw new Error("User Not Found");
   
-   const matchPass = await bcrypt.compare(password,User.password);
-   if(!matchPass) throw new Error("Wrong Password");
+      const matchPass = await bcrypt.compare(password,User.password);
+      if(!matchPass) throw new Error("Wrong Password");
 
-   const token = logintokenCreator(User);
-   return res.cookie("token",token).redirect("/");
+      const token = logintokenCreator(User);
+      return res.cookie("token",token).redirect("/");
 
    }catch(err){
     return res.render("login",

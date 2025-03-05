@@ -18,4 +18,9 @@ router.get("/",(req,res)=>{
     return res.render("home",{user:req.user});
 })
 
+router.get("/blog_form",(req,res)=>{
+
+    return res.render("blogform");
+})
+
 module.exports= router;
